@@ -1,0 +1,12 @@
+Producto  
+- Precio - float
+- Nombre - Char[20]
+
+
+- Foto 
+- Marca
+- stock
+- sku
+- Categorías [ ej. Perfumeria, Limpieza, Golosinas]
+
+

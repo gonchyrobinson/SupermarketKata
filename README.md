@@ -9,15 +9,15 @@ Un amigo heredó un pequeño super de un tío abuelo 2do.  Se enteró que sos as
 - Agregar archivo gitignore - ok
 - Agregar Archivos de copilación para - ok 
 - Comenzar a avanzar con los requisitos de la primer a iteración - ok
-- hacemos un commit y un push 
+- hacemos un commit y un push - ok
 *Primera  interación*
 
 Lo primero siempre es identificar las necesidades de nuestros usuarios ya sea entrevistándolos o bien investigando sobre el tema.
 Podemos ver páginas de otros supermercados para entender mejor que se requiere
 
-1. Diseñar la estructura representar los productos del sistema.
-2. Probar la estructura con un generador de valores aleatorios para las atributos de los productos. 
-3. Generar una función permita visualizar un producto correctamente
+1. Diseñar la estructura para representar los productos del sistema. - ok
+2. Probar la estructura con un generador de valores aleatorios para las atributos de los productos. - ok
+3. Generar una función permita visualizar un producto correctamente -ok
 4. Hacer un commit y push. 
 
 *Segunda iteración* 
