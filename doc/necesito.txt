@@ -1,0 +1,5 @@
+Para un producto de super, necesitaria
+- Una foto
+- Nombre
+- Precio
+- cantidad
