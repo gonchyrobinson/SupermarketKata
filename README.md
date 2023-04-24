@@ -10,6 +10,7 @@ Un amigo heredó un pequeño super de un tío abuelo 2do.  Se enteró que sos as
 - Agregar Archivos de copilación para - ok 
 - Comenzar a avanzar con los requisitos de la primer a iteración - ok
 - hacemos un commit y un push - ok
+
 *Primera  interación*
 
 Lo primero siempre es identificar las necesidades de nuestros usuarios ya sea entrevistándolos o bien investigando sobre el tema.
