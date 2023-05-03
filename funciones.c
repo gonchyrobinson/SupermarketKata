@@ -3,28 +3,28 @@
 #include<stdbool.h>
 
 typedef int item;
-struct Lista{
+typedef struct {
     item dato;
-    struct Lista* siguiente;
-};typedef struct Lista* Lista;
+    Tnodo* siguiente;
+} Tnodo;
 
-Lista CrearListaVacia();
-bool EsListaVacia(Lista cabecera);
-Lista CrearNodo(item dato);
-void InsertarNodo(Lista* cabecera, Lista nodo);
-void InsertarNodoFinal(Lista *cabecera, Lista nodo);
-bool PerteneceNodoALaLista(Lista cabecera, Lista nodo);
-void EliminaPrimerElemento(Lista* cabecera);
-void EliminaUltimoElemento(Lista* cabecera);
-Lista DesenlazarNodo(Lista* cabecerea, Lista dato);
-void MostrarLista(Lista cabecera);
-Lista DesenlazarPrimerNodo(Lista* cabecera);
-int ContarLaCantidadDeNodos(Lista cabecera);
+Tnodo* CrearListaVacia();
+bool EsListaVacia(Tnodo* cabecera);
+Tnodo* CrearNodo(item dato);
+void InsertarNodo(Tnodo** cabecera, Tnodo* nodo);
+void InsertarNodoFinal(Tnodo* *cabecera, Tnodo* nodo);
+bool PerteneceNodoALaLista(Tnodo* cabecera, Tnodo* nodo);
+void EliminaPrimerElemento(Tnodo** cabecera);
+void EliminaUltimoElemento(Tnodo** cabecera);
+Tnodo* DesenlazarNodo(Tnodo** cabecerea, Tnodo* dato);
+void MostrarLista(Tnodo* cabecera);
+Tnodo* DesenlazarPrimerNodo(Tnodo** cabecera);
+int ContarLaCantidadDeNodos(Tnodo* cabecera);
 
-Lista CrearListaVacia(){
+Tnodo* CrearListaVacia(){
     return(NULL);
 }
-bool EsListaVacia(Lista cabecera){
+bool EsListaVacia(Tnodo* cabecera){
     if(cabecera==NULL){
         return(true);
     }else
@@ -34,23 +34,23 @@ bool EsListaVacia(Lista cabecera){
     
 }
 
-Lista CrearNodo(item dato){
-    Lista nodo=(Lista)malloc(sizeof(struct Lista));
+Tnodo* CrearNodo(item dato){
+    Tnodo* nodo=(Tnodo*)malloc(sizeof(struct Tnodo*));
     nodo->dato=dato;
     nodo->siguiente=NULL;
 }
 
-void InsertarNodo(Lista* cabecera, Lista nodo){
+void InsertarNodo(Tnodo** cabecera, Tnodo* nodo){
     nodo->siguiente=*cabecera;
     *cabecera=nodo;
 }
 
-void InsertarNodoFinal(Lista *cabecera, Lista nodo){
+void InsertarNodoFinal(Tnodo* *cabecera, Tnodo* nodo){
     if(EsListaVacia(*cabecera)){
         nodo->siguiente=*cabecera;
         (*cabecera)=nodo;
     }else{
-        Lista aux=*cabecera;
+        Tnodo* aux=*cabecera;
         while (!EsListaVacia((aux)->siguiente))
         {
             aux=(aux)->siguiente;
@@ -60,7 +60,7 @@ void InsertarNodoFinal(Lista *cabecera, Lista nodo){
     }
 }
 
-bool PerteneceNodoALaLista(Lista cabecera, Lista nodo){
+bool PerteneceNodoALaLista(Tnodo* cabecera, Tnodo* nodo){
     int pertenece=false;
     if(!EsListaVacia(cabecera)){
         while (!EsListaVacia(cabecera) && cabecera!=nodo)
@@ -77,8 +77,8 @@ bool PerteneceNodoALaLista(Lista cabecera, Lista nodo){
     
 }
 
-void EliminaPrimerElemento(Lista* cabecera){
-    Lista nodoAux;
+void EliminaPrimerElemento(Tnodo** cabecera){
+    Tnodo* nodoAux;
     if(!EsListaVacia(*cabecera)){
         nodoAux=(*cabecera);
         (*cabecera)=(*cabecera)->siguiente;
@@ -90,9 +90,9 @@ void EliminaPrimerElemento(Lista* cabecera){
     
 }
 
-void EliminaUltimoElemento(Lista* cabecera){
-    Lista anterior;
-    Lista nodoAux;
+void EliminaUltimoElemento(Tnodo** cabecera){
+    Tnodo* anterior;
+    Tnodo* nodoAux;
     if (!EsListaVacia(*cabecera))
     {
         if (EsListaVacia((*cabecera)->siguiente))
@@ -115,10 +115,10 @@ void EliminaUltimoElemento(Lista* cabecera){
     
 }
 
-Lista DesenlazarNodo(Lista* cabecera, Lista dato){
-    Lista aux;
-    Lista anterior;
-    Lista nodoBuscado=NULL;
+Tnodo* DesenlazarNodo(Tnodo** cabecera, Tnodo* dato){
+    Tnodo* aux;
+    Tnodo* anterior;
+    Tnodo* nodoBuscado=NULL;
     if (!EsListaVacia(*cabecera))
     {
         if(*cabecera==dato)
@@ -143,7 +143,7 @@ Lista DesenlazarNodo(Lista* cabecera, Lista dato){
     }
     return(nodoBuscado); 
 }
-void MostrarLista(Lista cabecera){
+void MostrarLista(Tnodo* cabecera){
     while (!EsListaVacia(cabecera))
     {
         printf("\n---------NODO -----------------");
@@ -151,8 +151,8 @@ void MostrarLista(Lista cabecera){
     }
     
 }
-Lista DesenlazarPrimerNodo(Lista* cabecera){
-    Lista nodoSacado=NULL;
+Tnodo* DesenlazarPrimerNodo(Tnodo** cabecera){
+    Tnodo* nodoSacado=NULL;
     if (!EsListaVacia(*cabecera))
     {
         nodoSacado=*cabecera;
@@ -163,7 +163,7 @@ Lista DesenlazarPrimerNodo(Lista* cabecera){
     
 }
 
-int ContarLaCantidadDeNodos(Lista cabecera){
+int ContarLaCantidadDeNodos(Tnodo* cabecera){
     int cantidad=0;
     while (!EsListaVacia(cabecera))
     {
