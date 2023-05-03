@@ -12,6 +12,7 @@ struct Producto{
     float precio;
     int stock;
     char* categorias;
+    int id;
 };
 typedef struct Producto item;
 struct Tnodo
@@ -20,7 +21,7 @@ struct Tnodo
     struct Tnodo* siguiente;
 };
 typedef struct Tnodo Tnodo;
-item CrearProducto();
+item CrearProducto(int i);
 void MostrarProducto(item prod);
 Tnodo* CrearListaVacia();
 bool EsListaVacia(Tnodo* cabecera);
@@ -30,34 +31,43 @@ void MostrarLista(Tnodo* cabecera);
 Tnodo* DesenlazarPrimerNodo(Tnodo** cabecera);
 void EliminaPrimerElemento(Tnodo** cabecera);
 void MoverNodo(Tnodo* seleccionado, Tnodo** lista, Tnodo** pendientes, Tnodo** realizadas, Tnodo** enProceso);
-
+bool PerteneceIdALaLista(Tnodo* lista, int id);
+Tnodo* DesenlazarNodoPorId(Tnodo**lista, int id);
+Tnodo* BuscarPorId(Tnodo* lista, int id);
+void MenuDeBusqueda(Tnodo* lista);
 
 
 int main(){
     Tnodo* listaProductos=CrearListaVacia();
     Tnodo* nodoAInsertar;
     item prod;
-    int cantProd=rand()%10+1;
+    int cantProd=20;
     printf("Cantidad de produtctos cargados:  %d", cantProd);
     for (int i = 0; i < cantProd; i++)
     {
-        prod=CrearProducto();
+        prod=CrearProducto(i);
         nodoAInsertar=CrearNodo(prod);
         InsertarNodo(&listaProductos,nodoAInsertar);
     }
     MostrarLista(listaProductos);
+    MenuDeBusqueda(listaProductos);
+    
+    
+    
 }
 
 void MostrarProducto(item prod){
     printf("\n========================MUESTRA PRODUCTO=============================\n");
     printf("Nombre: %s\nCategoria: %s\nPrecio: %.2f\nStock: %d",prod.Nombre,prod.categorias,prod.precio,prod.stock);
+    printf("\nid: %d", prod.id);
 }
-item CrearProducto(){
+item CrearProducto(int i){
     item prod;
     prod.categorias=Categorias[rand()%3];
     prod.Nombre=Nombre[rand()%3];
     prod.stock=rand()%101;
     prod.precio=(float)0.5+(rand()%10000)*100/100;
+    prod.id=i;
     return(prod);
 }
 
@@ -125,5 +135,79 @@ void EliminaPrimerElemento(Tnodo** cabecera){
     
 }
 
+Tnodo* DesenlazarNodoPorId(Tnodo**lista, int id){
+    Tnodo* seleccionado=NULL;
+    Tnodo* aux;
+    Tnodo* anterior;
+    if (!EsListaVacia(*lista))
+    {
+        if ((*lista)->dato.id==id)
+        {
+            seleccionado=*lista;
+            *lista=(*lista)->siguiente;
+            seleccionado->siguiente=NULL;
+        }else
+        {
+            aux=*lista;
+            while (!EsListaVacia(aux)  && aux->dato.id!=id)
+            {
+                anterior=aux;
+                aux=aux->siguiente;
+            }
+            if (!EsListaVacia(aux))
+            {
+                seleccionado=aux;
+                anterior->siguiente=aux->siguiente;
+                seleccionado->siguiente=NULL;
+            }
+            
+            
+        }
+        return(seleccionado);
+        
+        
+    }
+    
+}
 
+bool PerteneceIdALaLista(Tnodo* lista, int id){
+    int pertenece=false;
+    while (!EsListaVacia(lista) && lista->dato.id!=id)
+    {
+        lista=lista->siguiente;
+    }
+    if (!EsListaVacia(lista))
+    {
+        pertenece=true;
+    }
+    return(pertenece);
+ 
+}
 
+Tnodo* BuscarPorId(Tnodo* lista, int id){
+    Tnodo* buscado=NULL;
+    while (!EsListaVacia(lista) && lista->dato.id!=id)
+    {
+        lista=lista->siguiente;
+    }
+    if (!EsListaVacia(lista))
+    {
+        buscado=lista;
+    }
+    return(buscado);
+    
+    
+}
+
+void MenuDeBusqueda(Tnodo* lista){
+    Tnodo* buscado;
+    int id;
+    printf("\n==================================BUSCAR NODO POR ID=================================\n");
+    printf("Ingrese el id que busca:  ");
+    scanf("%d", &id);
+    buscado=BuscarPorId(lista,id);
+    if (buscado)
+    {
+        MostrarProducto(buscado->dato);
+    }
+}
